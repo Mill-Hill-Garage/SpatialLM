@@ -122,7 +122,7 @@ def generate_layout(
     return layout
 
 
-if __name__ == "__main__":
+def make_arg_parser():
     parser = argparse.ArgumentParser("SpatialLM inference script")
     parser.add_argument(
         "-p",
@@ -270,8 +270,10 @@ if __name__ == "__main__":
         default=-1,
         help="The seed to use during inference, negative value means no seed",
     )
-    args = parser.parse_args()
+    return parser
 
+
+def do_inference(args):
     # load the model
     tokenizer = AutoTokenizer.from_pretrained(args.model_path)
     model = AutoModelForCausalLM.from_pretrained(
@@ -330,3 +332,9 @@ if __name__ == "__main__":
             os.makedirs(args.output, exist_ok=True)
             with open(os.path.join(args.output, output_filename), "w") as f:
                 f.write(pred_language_string)
+
+
+if __name__ == "__main__":
+    parser = make_arg_parser()
+    args = parser.parse_args()
+    do_inference(args)
