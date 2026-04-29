@@ -8,7 +8,7 @@ readme = "README.md"
 requires-python = "==3.12.*"
 
 dependencies =[
-    "torch==2.8",
+    "torch==2.11",
     "transformers<=4.46.1",
     "safetensors >= 0.4.5",
     "pandas >= 2.2.3",
@@ -24,30 +24,38 @@ dependencies =[
     "bbox @ git+https://github.com/varunagrawal/bbox",
     "terminaltables >= 3.1.10",
     "open3d >= 0.18.0",
-    "nvidia-cudnn-cu12",
-    "nvidia-nccl-cu12",
+    "nvidia-cudnn-cu13",
+    "nvidia-nccl-cu13",
     "addict >= 2.4.0",
-    "spconv-cu126",
+    "spconv-cu130",
+    "cumm-cu130",
     "torch_scatter",
     "torchsparse @ git+https://github.com/mit-han-lab/torchsparse.git",
     "timm",
     "ninja",
-    "flash-attn"
+    "flash_attn==2.8.3"
 ]
 
 [[tool.uv.index]]
 name = "pytorch"
-url = "https://download.pytorch.org/whl/cu128"
+url = "https://download.pytorch.org/whl/cu130"
 
 [[tool.uv.index]]
 name = "torch_scatter_index"
-url = "https://data.pyg.org/whl/torch-2.8.0+cu128.html"
+url = "https://data.pyg.org/whl/torch-2.11.0+cu130.html"
 format = "flat"
+
+[[tool.uv.index]]
+name = "spconv-cu130"
+url = "https://ratharog.github.io/cumm-spconv"
 
 [tool.uv.sources]
 torch = {index="pytorch"}
 torchvision = {index="pytorch"}
 torch_scatter = {index="torch_scatter_index"}
+spconv-cu130 = {index="spconv-cu130"}
+cumm-cu130 = {index="spconv-cu130"}
+flash_attn = {url="https://github.com/adithyaxx/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu13torch2.11cxx11abiTRUE-cp312-cp312-linux_x86_64.whl"}
 
 [tool.uv.extra-build-dependencies]
 torch-scatter = [{requirement="torch", match-runtime=true}]
